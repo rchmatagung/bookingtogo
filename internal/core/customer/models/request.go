@@ -16,7 +16,6 @@ type UpdateCustomerRequest struct {
 	CustomerDOB   string                `json:"customer_dob"`
 	CustomerPhone string                `json:"customer_phone"`
 	CustomerEmail string                `json:"customer_email"`
-	IsDelete      bool                  `json:"is_delete"`
 	FamilyList    []UpdateFamilyRequest `json:"family_list"`
 }
 
