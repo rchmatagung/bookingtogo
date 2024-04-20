@@ -1,0 +1,15 @@
+App:
+    Name: Booking To Go
+
+Connection:
+    DatabaseApp:
+        DriverName: postgres
+        DriverSource: user=postgres password=agungsmpn22 sslmode=disable dbname=bookingtogo host=127.0.0.1 port=5432
+        MaxOpenConns: 5
+        MaxIdleConns: 5
+        ConnMaxLifetime: 30
+        ConnMaxIdleTime: 30
+
+Logger:
+    Logrus:
+        Level: Debug
