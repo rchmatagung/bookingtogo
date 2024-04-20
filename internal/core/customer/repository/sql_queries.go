@@ -40,4 +40,26 @@ const (
 			fl_dob as family_list_dob 
 		from family_list WHERE cst_id = ?
 	`
+
+	UpdateCustomer = `
+		UPDATE customer
+		SET nationality_id = ?, cst_name = ?, cst_dob = ?, cst_phoneNum = ?, cst_email = ?
+		WHERE cst_id = ?
+		RETURNING cst_id as customer_id, cst_name as customer_name, cst_dob as customer_dob, cst_phoneNum as customer_phone, cst_email as customer_email, nationality_id
+	`
+
+	UpdateFamilyList = `
+		UPDATE family_list
+		SET fl_relation = ?, fl_name = ?, fl_dob = ?
+		WHERE fl_id = ?
+		RETURNING fl_id as family_list_id, cst_id as customer_id, fl_relation as family_list_relation, fl_name as family_list_name, fl_dob as family_list_dob
+	`
+
+	DeleteCustomer = `
+		DELETE FROM customer WHERE cst_id = ?
+	`
+
+	DeleteFamilyList = `
+		DELETE FROM family_list WHERE fl_id = ?
+	`
 )

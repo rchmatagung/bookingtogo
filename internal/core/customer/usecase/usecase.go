@@ -14,6 +14,7 @@ type Usecase interface {
 	InsertCustomer(ctx context.Context, customerReq customerModels.CustomerRequest) (*customerModels.CustomerInsertResponse, error)
 	GetAllCustomer(ctx context.Context) (*[]customerModels.CustomerList, error)
 	GetCustomerById(ctx context.Context, customerId int64) (*customerModels.Customer, error)
+	UpdateCustomer(ctx context.Context, customerReq customerModels.UpdateCustomerRequest) (*customerModels.CustomerInsertResponse, error)
 }
 
 type CustomerUsecase struct {
@@ -68,6 +69,17 @@ func (c CustomerUsecase) GetAllCustomer(ctx context.Context) (*[]customerModels.
 func (c CustomerUsecase) GetCustomerById(ctx context.Context, customerId int64) (*customerModels.Customer, error) {
 
 	response, err := c.Repo.Core.Customer.GetCustomerById(ctx, customerId)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, err
+
+}
+
+func (c CustomerUsecase) UpdateCustomer(ctx context.Context, customerReq customerModels.UpdateCustomerRequest) (*customerModels.CustomerInsertResponse, error) {
+
+	response, err := c.Repo.Core.Customer.UpdateCustomer(ctx, customerReq)
 	if err != nil {
 		return nil, err
 	}

@@ -88,3 +88,27 @@ func (c CustomerHandler) GetCustomerById(w http.ResponseWriter, r *http.Request)
 	json.NewEncoder(w).Encode(getCustomerById)
 
 }
+
+func (c CustomerHandler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
+
+	dataReq := new(models.UpdateCustomerRequest)
+	if err := json.NewDecoder(r.Body).Decode(dataReq); err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": err.Error()})
+		return
+	}
+
+	updateCustomer, err := c.Usecase.Core.Customer.UpdateCustomer(r.Context(), *dataReq)
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(map[string]interface{}{"error": err.Error()})
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(updateCustomer)
+
+}
